@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "182413633817",
+    "project_id": "stocoin-a2287",
+    "storage_bucket": "stocoin-a2287.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182413633817:android:e45a4866fde5fd2bd3fd88",
+        "android_client_info": {
+          "package_name": "com.anrbyrm.stocoin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "182413633817-ipf0n6rs03905g536pkfha1boa17un96.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anrbyrm.stocoin",
+            "certificate_hash": "6b79f59df69e86ea9f69d6ec31ce3e24aff6ac4e"
+          }
+        },
+        {
+          "client_id": "182413633817-6pdokagekfuegngngqne59dd8p92p2rk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUZg2SUGS1-YCscEPLfCF9yJF1dmv49E8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "182413633817-6pdokagekfuegngngqne59dd8p92p2rk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
