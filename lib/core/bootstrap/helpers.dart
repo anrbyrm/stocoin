@@ -1,7 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:stocoin/core/config/app_theme.dart';
 import 'package:stocoin/core/theme/styles/styles.dart';
+
+dynamic getEnv(String? key, {dynamic defaultValue}) {
+  if (!dotenv.env.containsKey(key) && defaultValue != null) {
+    return defaultValue;
+  }
+
+  final value = dotenv.env[key];
+
+  if (value == 'null' || value == null) {
+    return null;
+  }
+
+  if (value.toLowerCase() == 'true') {
+    return true;
+  }
+
+  if (value.toLowerCase() == 'false') {
+    return false;
+  }
+
+  return value;
+}
 
 TextTheme getAppTextTheme(TextStyle? appThemeFont, TextTheme? textTheme) {
   return TextTheme(
