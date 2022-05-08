@@ -26,6 +26,11 @@ dynamic getEnv(String? key, {dynamic defaultValue}) {
   return value;
 }
 
+String getImage(String? imageName) =>
+    '${getEnv("ASSET_PATH_IMAGES")}/$imageName';
+
+String getIcon(String? iconName) => '${getEnv("ASSET_PATH_ICONS")}/$iconName';
+
 TextTheme getAppTextTheme(TextStyle? appThemeFont, TextTheme? textTheme) {
   return TextTheme(
     headline1: appThemeFont!.merge(textTheme!.headline1),
@@ -45,9 +50,15 @@ TextTheme getAppTextTheme(TextStyle? appThemeFont, TextTheme? textTheme) {
 }
 
 ColorStyles get(BuildContext? context) {
-  return Theme.of(context!).brightness == Brightness.light
+  return MediaQuery.of(context!).platformBrightness == Brightness.light
       ? light().colors!
       : dark().colors!;
+}
+
+extension Mix on Color {
+  Color? mix(Color? other, double? amount) {
+    return Color.lerp(this, other, amount!);
+  }
 }
 
 extension ColorsHelper on TextStyle {
