@@ -24,8 +24,8 @@ class Localized extends HookWidget {
 }
 
 extension Translation on String {
-  String translate({Map<String, String>? arguments}) =>
-      Localization.instance.translate(this, arguments);
+  String tr({Map<String, String>? arguments}) =>
+      Localization.instance.tr(this, arguments);
 }
 
 class Localization {
@@ -60,19 +60,19 @@ class Localization {
     }
 
     if (assetsDir != null) {
-      values = await initLanguage(languageCode);
+      values = await initLanguage(languageCode) as Map<String, dynamic>;
     } else {
       values = valuesAsMap;
     }
   }
 
-  Future<Map<String, String>> initLanguage(String? languageCode) async {
+  Future<Map<dynamic, dynamic>> initLanguage(String? languageCode) async {
     final filePath = '$assetsDir$languageCode.json';
     final content = await rootBundle.loadString(filePath);
-    return json.decode(content) as Map<String, String>;
+    return json.decode(content) as Map<dynamic, dynamic>;
   }
 
-  String translate(String key, [Map<String, String>? arguments]) {
+  String tr(String key, [Map<String, String>? arguments]) {
     final value = (values == null || values![key] == null) ? key : values![key];
 
     String? returnValue = value as String;
