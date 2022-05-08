@@ -10,6 +10,8 @@ final appThemes = [
   dark(),
 ];
 
+const appNameFont = 'titillium';
+
 ColorStyles lightColors = LightThemeColors();
 ColorStyles darkColors = DarkThemeColors();
 
