@@ -91,11 +91,11 @@ class _OpacityPageTransition extends HookWidget {
     required Widget? oldPage,
   })  : _opacityAnimation = CurvedAnimation(
           parent: routeAnimation,
-          curve: const Interval(.6, 1, curve: Curves.easeOutQuart),
+          curve: const Interval(.6, 1, curve: Curves.easeInOut),
         ).drive(Tween<double>(begin: 0, end: 1)),
         _secondaryOpacity = CurvedAnimation(
           parent: routeAnimation,
-          curve: const Interval(0, .55, curve: Curves.fastOutSlowIn),
+          curve: const Interval(0, .55, curve: Curves.ease),
         ).drive(Tween<double>(begin: 1, end: 0)),
         _oldPage = oldPage,
         super(key: key);
