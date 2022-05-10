@@ -7,17 +7,21 @@ import 'package:stocoin/core/localization/app_localization.dart';
 
 enum TextFieldType { email, text, password }
 
+typedef OnChanged = void Function(String);
+
 class EntryTextField extends HookWidget {
   const EntryTextField({
     this.hintText,
     this.type,
     this.controller,
+    this.onChanged,
     Key? key,
   }) : super(key: key);
 
   final String? hintText;
   final TextFieldType? type;
   final TextEditingController? controller;
+  final OnChanged? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -43,15 +47,17 @@ class EntryTextField extends HookWidget {
         child: TextField(
           autocorrect: false,
           controller: controller,
+          onChanged: onChanged,
           decoration: InputDecoration(
-            labelText: hintText!.tr(),
+            hintText: hintText!.tr(),
+            floatingLabelBehavior: FloatingLabelBehavior.never,
             labelStyle: TextStyle(color: get(context).textFieldHintTextColor),
             isDense: true,
             suffixIconConstraints:
                 const BoxConstraints(maxHeight: 40, maxWidth: 40),
             suffixIcon: type == TextFieldType.password
                 ? Padding(
-                    padding: const EdgeInsets.only(left: 10, top: 15),
+                    padding: const EdgeInsets.only(left: 10),
                     child: InkWell(
                       onTap: () => obscureText.value = !obscureText.value,
                       customBorder: const CircleBorder(),
@@ -73,7 +79,7 @@ class EntryTextField extends HookWidget {
                     ),
                   )
                 : Padding(
-                    padding: const EdgeInsets.only(left: 10, top: 15),
+                    padding: const EdgeInsets.only(left: 10),
                     child: InkWell(
                       onTap: controller!.clear,
                       customBorder: const CircleBorder(),
