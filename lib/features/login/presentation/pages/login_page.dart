@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:stocoin/core/bootstrap/helpers.dart';
@@ -8,6 +9,7 @@ import 'package:stocoin/core/config/app_theme.dart';
 import 'package:stocoin/core/localization/app_localization.dart';
 import 'package:stocoin/core/ui/entry_button.dart';
 import 'package:stocoin/core/ui/entry_text_field.dart';
+import 'package:stocoin/features/login/presentation/cubit/login_cubit.dart';
 import 'package:stocoin/features/login/presentation/widgets/logo.dart';
 import 'package:stocoin/injectable.dart';
 
@@ -18,6 +20,7 @@ class LoginPage extends HookWidget {
   Widget build(BuildContext context) {
     final emailTextController = useTextEditingController();
     final passwordTextController = useTextEditingController();
+    final loginCubit = context.read<LoginCubit>();
 
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
@@ -40,12 +43,14 @@ class LoginPage extends HookWidget {
               ),
               const SizedBox(height: 41),
               EntryTextField(
+                onChanged: loginCubit.emailChanged,
                 hintText: 'email',
                 type: TextFieldType.email,
                 controller: emailTextController,
               ),
               const SizedBox(height: 5),
               EntryTextField(
+                onChanged: loginCubit.passwordChanged,
                 hintText: 'password',
                 type: TextFieldType.password,
                 controller: passwordTextController,
