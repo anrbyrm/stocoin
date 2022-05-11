@@ -7,9 +7,10 @@ import 'package:stocoin/core/config/app_constants.dart';
 import 'package:stocoin/core/localization/app_localization.dart';
 
 class EntryButton extends HookWidget {
-  const EntryButton({this.label, Key? key}) : super(key: key);
+  const EntryButton({this.label, this.enabled, Key? key}) : super(key: key);
 
   final String? label;
+  final bool? enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +20,11 @@ class EntryButton extends HookWidget {
 
     return Listener(
       onPointerDown: (_) {
-        verticalPadding.value = .8;
-        horizontalPadding.value += .8;
-        HapticFeedback.vibrate();
+        if (enabled!) {
+          verticalPadding.value = .8;
+          horizontalPadding.value += .8;
+          HapticFeedback.vibrate();
+        }
       },
       onPointerUp: (_) {
         verticalPadding.value = 0;
@@ -36,16 +39,19 @@ class EntryButton extends HookWidget {
           height: 56,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: buttonColor,
+            color: enabled! ? buttonColor : get(context).scaffold,
+            border: enabled!
+                ? Border.all(width: 0)
+                : Border.all(color: buttonColor),
             borderRadius: BorderRadius.circular(entryButtonRadius),
           ),
           child: Center(
             child: Text(
               label!.tr().toUpperCase(),
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: const Color(0xFFFFFFFF),
-                  ),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText1!
+                  .copyWith(fontWeight: FontWeight.w600),
             ),
           ),
         ),
