@@ -25,9 +25,8 @@ class RegisterPage extends HookWidget {
         resizeToAvoidBottomInset: false,
         appBar: const CustomAppBar(title: 'create_account'),
         body: Padding(
-          padding: const EdgeInsets.only(
-            top: entrySymmetricVerticalPadding / 2,
-            bottom: entrySymmetricVerticalPadding,
+          padding: const EdgeInsets.symmetric(
+            vertical: entrySymmetricVerticalPadding / 2,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +71,7 @@ class RegisterPage extends HookWidget {
                       controller: confirmPassTextController,
                     ),
                     const Spacer(),
-                    const EntryButton(label: 'sign_up'),
+                    const EntryButton(label: 'sign_up', enabled: false),
                     const SizedBox(height: 10),
                     GestureDetector(
                       onTap: () => di<NavigationService>().goBack(),
