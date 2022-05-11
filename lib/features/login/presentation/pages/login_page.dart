@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:formz/formz.dart';
 
 import 'package:stocoin/core/bootstrap/helpers.dart';
 import 'package:stocoin/core/bootstrap/navigation_service.dart';
@@ -22,17 +24,37 @@ class LoginPage extends HookWidget {
     final passwordTextController = useTextEditingController();
     final loginCubit = context.read<LoginCubit>();
 
+    debugPrint(MediaQuery.of(context).viewInsets.bottom.toString());
+
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         body: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: entrySymmetricVerticalPadding,
+          padding: const EdgeInsets.only(
+            top: entrySymmetricVerticalPadding,
+            bottom: entrySymmetricVerticalPadding / 2,
           ),
           child: Column(
             children: <Widget>[
-              const Logo(),
+              // const Logo(),
+
+              SizedBox(
+                height: MediaQuery.of(context).viewInsets.bottom > 0
+                    ? 0
+                    : MediaQuery.of(context).size.height / 5,
+                width: double.infinity,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    // ParticleFactory(
+                    //   height: MediaQuery.of(context).size.height / 5,
+                    //   width: double.infinity,
+                    //   amount: 10,
+                    // ),
+                    SvgPicture.asset(getIcon('logo.svg')),
+                  ],
+                ),
+              ),
               Text(
                 (getEnv('APP_NAME') as String).toUpperCase(),
                 style: Theme.of(context).textTheme.headline1!.copyWith(
@@ -56,7 +78,12 @@ class LoginPage extends HookWidget {
                 controller: passwordTextController,
               ),
               const Spacer(),
-              const EntryButton(label: 'log_in'),
+              BlocBuilder<LoginCubit, LoginState>(
+                builder: (context, state) => EntryButton(
+                  label: 'log_in',
+                  enabled: state.status! == FormzStatus.valid,
+                ),
+              ),
               const SizedBox(height: 10),
               GestureDetector(
                 onTap: () => di<NavigationService>()
